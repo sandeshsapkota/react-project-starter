@@ -33,6 +33,13 @@ class AuthService {
   static logout(): Promise<void> {
     return http().post('api/logout');
   }
+
+  /**
+   * REFRESH TOKEN
+   * */
+  static refreshToken(): Promise<void> {
+    return http().post('api/refresh-token');
+  }
 }
 
 export default AuthService;

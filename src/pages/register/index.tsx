@@ -1,34 +1,41 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 
 import { useNavigate } from 'react-router';
 import useAuth from '@/hooks/useAuth';
 import { LoginSignUpFormWrapper } from '@/components';
+import {ADMIN_HOME_PAGE} from "@/utils/constants/common";
 
 const Index = () => {
   /*
    * STATE
    * */
-  const { register } = useAuth();
+  const { register, token } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if(token){
+      navigate(ADMIN_HOME_PAGE)
+    }
+  }, []);
 
   /*
    * REDIRECT
    * */
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('sora@gmail.com');
+  const [password, setPassword] = useState('password');
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      const response: any = register({
+      const response: any = await register({
         username,
         password,
         confirm_password: password,
       });
-      if (response && response.ok) {
-        navigate('/');
+      if (response && response?.ok) {
+        navigate('/login');
       }
     } catch (e) {
       console.error(e);

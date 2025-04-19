@@ -1,5 +1,7 @@
 const Homepage = () => {
-  return <div className="p-8">
+    console.log(document.cookie)
+
+    return <div className="p-8">
       Dashboard
   </div>;
 };
