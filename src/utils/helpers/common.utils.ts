@@ -4,7 +4,7 @@
  * @returns an array of incremental numbers.
  */
 export const generateIncrementalArray = (limit: number): number[] => {
-    return Array.from({length: limit}, (_, index) => index + 1);
+  return Array.from({ length: limit }, (_, index) => index + 1);
 };
 
 /**
@@ -15,19 +15,17 @@ export const generateIncrementalArray = (limit: number): number[] => {
  * @param searchBy
  */
 export const searchFilter = <T>(
-    searchQuery: string,
-    objects: T[],
-    searchBy: (keyof T & string) | (keyof T & string)[],
+  searchQuery: string,
+  objects: T[],
+  searchBy: (keyof T & string) | (keyof T & string)[],
 ): T[] | [] => {
-    const query = searchQuery.toLowerCase();
-    if(!query) return [];
-    return objects.filter((item) =>
-        typeof searchBy === 'string'
-            ? /* when providing single key */
-            String(item[searchBy]).toLowerCase().includes(query)
-            : /* when providing multiple keys */
-            searchBy.some((key) =>
-                String(item[key]).toLowerCase().includes(query),
-            ),
-    );
+  const query = searchQuery.toLowerCase();
+  if (!query) return [];
+  return objects.filter((item) =>
+    typeof searchBy === 'string'
+      ? /* when providing single key */
+        String(item[searchBy]).toLowerCase().includes(query)
+      : /* when providing multiple keys */
+        searchBy.some((key) => String(item[key]).toLowerCase().includes(query)),
+  );
 };

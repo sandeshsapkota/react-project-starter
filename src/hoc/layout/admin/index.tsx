@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 import Protected from '@/hoc/protected';
-import Header from '@/components/header';
+import AdminHeader from '@/components/header/AdminHeader';
 
 const AdminLayout = ({
   children,
@@ -13,7 +13,7 @@ const AdminLayout = ({
   return (
     <Protected>
       <title>{title ? `${title} | app name` : 'app name'}</title>
-      <Header />
+      <AdminHeader />
       <main>{children}</main>
     </Protected>
   );

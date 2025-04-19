@@ -5,6 +5,6 @@ type PermissionTypes<T> = { [key in T & string]: string[] };
 
 export const AUTH_GUARDS: PermissionTypes<RolesType> = {
   admin: [ADMIN_HOME_PAGE, '/reports'],
-  developer: [],
+  developer: ['/dashboard'],
   manager: [],
 };

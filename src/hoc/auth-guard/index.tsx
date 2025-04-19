@@ -30,8 +30,12 @@ const AuthGuard: FC<PropsWithChildren> = (props) => {
   const { pathname } = useLocation();
 
   useLayoutEffect(() => {
-    if (user?.role && canSee(user.role, pathname)) {
-      setAuthorized(true);
+    if (user) {
+      if (user?.role && canSee(user.role, pathname)) {
+        setAuthorized(true);
+      } else {
+        setAuthorized(false);
+      }
     }
   }, [pathname, user]);
 

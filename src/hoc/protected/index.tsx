@@ -21,7 +21,7 @@ const Protected: FC<PropsWithChildren> = (props) => {
    * Fetch user profile if token exists, otherwise navigate to the homepage.
    */
   useEffect(() => {
-    token ? fetchProfile() : navigate('/');
+    token ? fetchProfile() : navigate('/login');
   }, [token]);
 
   return authenticated ? <AuthGuard>{children}</AuthGuard> : null;
