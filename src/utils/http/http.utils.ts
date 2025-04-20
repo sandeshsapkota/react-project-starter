@@ -11,6 +11,7 @@ const http = (config?: HttpTypes) => {
    * */
   const axiosConfig = {
     baseURL: 'http://localhost:3000/',
+    withCredentials: true,
     headers: {
       'Content-Type': 'application/json',
       ...config?.additionalHeader,

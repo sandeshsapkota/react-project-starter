@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux';
+import {useNavigate} from "react-router";
 
 import authSlice, {
   loginFailure,
@@ -14,6 +15,7 @@ import useStore from '@/hooks/useStore';
 import notify from '@/utils/helpers/notification.utils';
 
 const useAuth = () => {
+  const navigate = useNavigate()
   /**
    * REDUX HOOK
    * */
@@ -29,7 +31,7 @@ const useAuth = () => {
    * REGISTER METHOD
    * @param data
    * */
-  const register = (data: signupType) => AuthService.register(data);
+  const register = async (data: signupType) => AuthService.register(data);
 
   /**
    * LOGIN METHOD
@@ -41,7 +43,6 @@ const useAuth = () => {
       const response: any = await AuthService.login(credentials);
       dispatch(loginSuccess(response.data));
     } catch (e: any) {
-      console.log(e);
       dispatch(loginFailure(e));
       notify('Something went wrong.', 'error');
     }
@@ -61,6 +62,19 @@ const useAuth = () => {
     }
   };
 
+  /*
+  * REFRESH TOKEN
+  * */
+  const refreshToken = async () => {
+    try {
+      const response: any = await AuthService.refreshToken();
+      dispatch(loginSuccess(response.data));
+    } catch (e: any) {
+      dispatch(invalidToken());
+      navigate('/login')
+    }
+  };
+
   /**
    * FETCH PROFILE METHOD
    * */
@@ -69,8 +83,11 @@ const useAuth = () => {
       const response = await AuthService.fetchProfile();
       dispatch(setUser(response));
     } catch (e: any) {
-      console.error(e);
-      dispatch(invalidToken());
+      if (e?.response?.data?.error === 'invalid_token') {
+        refreshToken();
+      } else {
+        dispatch(invalidToken());
+      }
     }
   };
 

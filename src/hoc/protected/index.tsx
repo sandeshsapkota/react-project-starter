@@ -2,6 +2,7 @@ import { FC, PropsWithChildren, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import useAuth from '@/hooks/useAuth';
 import AuthGuard from '@/hoc/auth-guard';
+import {clearToken} from "@/utils/helpers/token.utils";
 
 /**
  * Component that restricts access to its children based on user authentication status.
@@ -22,6 +23,9 @@ const Protected: FC<PropsWithChildren> = (props) => {
    */
   useEffect(() => {
     token ? fetchProfile() : navigate('/login');
+    if(!token) {
+      clearToken()
+    }
   }, [token]);
 
   return authenticated ? <AuthGuard>{children}</AuthGuard> : null;
