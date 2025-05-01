@@ -1,8 +1,8 @@
-@import './vendor/vendor';
+@use './vendor/vendor';
 
-@import './abstract/variable';
-@import './abstract/mixin';
+@use './abstract/variable';
+@use './abstract/mixin';
 
-@import './base/reset';
-@import './base/base';
-@import './base/utilities';
+@use './base/reset';
+@use './base/base';
+@use './base/utilities';
