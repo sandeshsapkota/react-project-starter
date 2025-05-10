@@ -1,13 +1,16 @@
-import { ReactNode } from 'react';
-import Dashboard from '@/pages/dashboard';
-import Register from '@/pages/register';
-import Login from '@/pages/login';
-import ForgotPassword from '@/pages/forget-password';
+import { ReactNode, lazy } from 'react';
 import { ADMIN_HOME_PAGE } from '@/utils/constants/common';
 import { AdminLayout, FrontLayout } from '@/components';
-import Reports from '@/pages/reports';
-import Home from '@/pages/home';
-import UnAuthorized from '@/components/un-authorized';
+
+import Home from "@/pages/home"
+const UnAuthorized = lazy(() => import('@/components/un-authorized'));
+const Dashboard = lazy(() => import('@/pages/dashboard'));
+const Register = lazy(() => import('@/pages/register'));
+const Login = lazy(() => import('@/pages/login'));
+const ForgotPassword = lazy(() => import('@/pages/forget-password'));
+const Reports = lazy(() => import('@/pages/reports'));
+
+export const RouteLoadingComponent = () => <div>LOADING</div>;
 
 /*
  * Higher Order Component (HOC) to wrap a component with AdminLayout.

@@ -10,16 +10,20 @@ import index from '@/store';
 import './assets/css/app.scss';
 
 import App from '@/App';
+import {Suspense} from "react";
+import {RouteLoadingComponent} from "@/routes";
 
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Provider store={index}>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <App />
-        <ToastContainer />
-      </BrowserRouter>
+    <Suspense fallback={<RouteLoadingComponent/>}>
+        <BrowserRouter>
+            <App />
+            <ToastContainer />
+        </BrowserRouter>
+    </Suspense>
     </QueryClientProvider>
   </Provider>,
 );
